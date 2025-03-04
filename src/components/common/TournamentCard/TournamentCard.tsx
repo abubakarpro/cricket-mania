@@ -1,45 +1,12 @@
-import { Card, Box, Typography, Button, useTheme } from "@mui/material";
+import { Card, Box, Typography, Button } from "@mui/material";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import {
-  CalendarMonth,
-  Groups,
-  LocationOn,
-  AccessTime,
-} from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
-import { fetchTournamentData } from "@/redux/thunk/tournament.thunk";
-import { useEffect } from "react";
-
-// interface TournamentProps {
-//   tournament: {
-//     id: string;
-//     image: string;
-//     date: string;
-//     title: string;
-//     teams: string;
-//     location: string;
-//     time: string;
-//     prize: string;
-//   };
-// }
+import { Groups, LocationOn, AccessTime } from "@mui/icons-material";
 
 const TournamentCard: React.FC<{ tournament: TornamentState }> = ({
   tournament,
 }) => {
-  const theme = useTheme();
   const router = useRouter();
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(
-    (state: RootState) => state.tournament
-  );
-
-  useEffect(() => {
-    dispatch(fetchTournamentData() as any)
-      .then((res: any) => console.log("API HERE IN HOME WALAY CARD ME :", res))
-      .catch((err: any) => console.error("API Error:", err));
-  }, [dispatch]);
 
   return (
     <Card

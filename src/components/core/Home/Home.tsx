@@ -5,72 +5,23 @@ import {
   Typography,
   TextField,
   InputAdornment,
-  Container,
   Tabs,
   Tab,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useEffect, useState } from "react";
-import Image from "next/image";
-import teamImage from "@/public/Images/team.png";
 
 import TournamentList from "@/components/common/TournamentList/TournamentList";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { fetchTournamentData } from "@/redux/thunk/tournament.thunk";
-
-// const tournamentsToday = [
-//   {
-//     id: "1",
-//     image: "/Images/team.png",
-//     date: "02 Mar, 2025",
-//     title: "Cricket Championship",
-//     teams: "8 Teams",
-//     location: "Arena, Johar Town",
-//     time: "7:00 pm to 9:00 pm",
-//     prize: "100K",
-//   },
-//   {
-//     id: "2",
-//     image: "/Images/team.png",
-//     date: "02 Mar, 2025",
-//     title: "Super League Finals",
-//     teams: "6 Teams",
-//     location: "Arena, Johar Town",
-//     time: "7:00 pm to 9:00 pm",
-//     prize: "100K",
-//   },
-// ];
-
-// const upcomingTournaments = [
-//   {
-//     id: "3",
-//     image: "/Images/team.png",
-//     date: "05 Mar, 2025",
-//     title: "T20 Premier Cup",
-//     teams: "10 Teams",
-//     location: "Arena, Johar Town",
-//     time: "6:00 pm to 8:00 pm",
-//     prize: "200K",
-//   },
-//   {
-//     id: "4",
-//     image: "/Images/team.png",
-//     date: "07 Mar, 2025",
-//     title: "Street Cricket Bash",
-//     teams: "12 Teams",
-//     location: "Arena, Johar Town",
-//     time: "5:00 pm to 7:00 pm",
-//     prize: "150K",
-//   },
-// ];
+import { AppDispatch } from "@/redux/store";
 
 export default function HomeScreen() {
   const [tabIndex, setTabIndex] = useState(0);
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(
-    (state: RootState) => state.tournament
-  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  const { data } = useSelector((state: RootState) => state.tournament);
 
   const [tornamentToday, setTornamentToday] = useState<TornamentState[]>([]);
   const [upcomingTournaments, setUpcomingTournaments] = useState<
@@ -94,13 +45,10 @@ export default function HomeScreen() {
   }, [data]);
 
   useEffect(() => {
-    console.log("upcoming", upcomingTournaments);
-  }, [upcomingTournaments]);
-
-  useEffect(() => {
-    dispatch(fetchTournamentData() as any)
-      .then((res: any) => console.log("API Response:", res))
-      .catch((err: any) => console.error("API Error:", err));
+    dispatch(fetchTournamentData())
+      .unwrap()
+      .then((res: TornamentState[]) => console.log("API Response:", res))
+      .catch((err: unknown) => console.error("API Error:", err));
   }, [dispatch]);
 
   return (

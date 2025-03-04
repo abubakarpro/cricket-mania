@@ -1,12 +1,5 @@
 import { LocationOn } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
 const Area = () => (
   <Card sx={{ backgroundColor: "#1E1E1E" }}>

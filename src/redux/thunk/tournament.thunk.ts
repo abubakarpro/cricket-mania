@@ -7,7 +7,8 @@ export const fetchTournamentData = createAsyncThunk(
     try {
       const data = await fetchTournamentDataApi();
       return data;
-    } catch (err: unknown) {
+    } catch (error) {
+      console.error("Error fetching tournament data:", error);
       return rejectWithValue("Something went wrong");
     }
   }

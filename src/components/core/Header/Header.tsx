@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import React from "react";
 import { useRouter } from "next/router";
 import MenuIcon from "@mui/icons-material/Menu";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
+import Image from "next/image";
 
 const Header = () => {
   const router = useRouter();
@@ -35,7 +35,6 @@ const Header = () => {
         />
       </Box>
 
-      {/* Logo (Centered) */}
       <Box
         onClick={() => router.push("/")}
         sx={{
@@ -48,14 +47,12 @@ const Header = () => {
           width: { xs: "150px", sm: "180px", md: "300px" },
         }}
       >
-        <img
+        <Image
           src="/Images/logo.svg"
           alt="Logo"
-          style={{
-            height: "51px",
-            width: "100%",
-            objectFit: "contain",
-          }}
+          width={100}
+          height={51}
+          style={{ objectFit: "contain" }}
         />
       </Box>
     </Box>

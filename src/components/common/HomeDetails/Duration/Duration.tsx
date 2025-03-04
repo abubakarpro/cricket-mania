@@ -1,14 +1,7 @@
-import { AccessTime, LocationOn } from "@mui/icons-material";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { AccessTime } from "@mui/icons-material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
 
-const Area = () => (
+const Duration = () => (
   <Card sx={{ backgroundColor: "#1E1E1E" }}>
     <CardContent>
       <Box
@@ -107,4 +100,4 @@ const Area = () => (
   </Card>
 );
 
-export default Area;
+export default Duration;

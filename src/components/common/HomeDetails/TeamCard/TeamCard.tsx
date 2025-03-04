@@ -1,23 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { Card, CardContent, Typography, Button, Box } from "@mui/material";
 import SportsCricketIcon from "@mui/icons-material/SportsCricket";
 import GroupIcon from "@mui/icons-material/Group";
 
-import type { RootState } from "../../../../redux/store";
-import { fetchTournamentData } from "@/redux/thunk/tournament.thunk";
-
 const TeamCard = () => {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector(
-    (state: RootState) => state.tournament
-  );
-
-  useEffect(() => {
-    dispatch(fetchTournamentData() as any)
-      .then((res: any) => console.log("API Response:", res))
-      .catch((err: any) => console.error("API Error:", err));
-  }, [dispatch]);
   return (
     <Card
       sx={{
