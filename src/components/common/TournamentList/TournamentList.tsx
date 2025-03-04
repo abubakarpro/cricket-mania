@@ -1,19 +1,19 @@
 import { Grid } from "@mui/material";
 import TournamentCard from "../TournamentCard/TournamentCard";
 
-interface Tournament {
-  id: number;
-  image: any;
-  date: string;
-  title: string;
-  teams: string;
-  location: string;
-  time: string;
-  prize: string;
-}
+// interface Tournament {
+//   id: string;
+//   image: any;
+//   date: string;
+//   title: string;
+//   teams: string;
+//   location: string;
+//   time: string;
+//   prize: string;
+// }
 
 interface TournamentListProps {
-  tournaments: Tournament[];
+  tournaments: TornamentState[];
 }
 
 const TournamentList = ({ tournaments }: TournamentListProps) => {

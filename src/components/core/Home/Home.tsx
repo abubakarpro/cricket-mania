@@ -10,88 +10,101 @@ import {
   Tab,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import teamImage from "../../../../public/Images/team.png";
+import teamImage from "@/public/Images/team.png";
 
 import TournamentList from "@/components/common/TournamentList/TournamentList";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { fetchTournamentData } from "@/redux/thunk/tournament.thunk";
 
-const tournamentsToday = [
-  {
-    id: 1,
-    image: <Image src={teamImage} alt="Tournament" />,
-    date: "02 Mar, 2025",
-    title: "Cricket Championship",
-    teams: "8 Teams",
-    location: "Arena, Johar Town",
-    time: "7:00 pm to 9:00 pm",
-    prize: "100K",
-  },
-  {
-    id: 2,
-    image: (
-      <img
-        src="/Images/team.png"
-        alt="Tournament"
-        width={"100%"}
-        height={"auto"}
-        style={{ borderRadius: "10px" }}
-      />
-    ),
-    date: "02 Mar, 2025",
-    title: "Super League Finals",
-    teams: "6 Teams",
-    location: "Arena, Johar Town",
-    time: "7:00 pm to 9:00 pm",
-    prize: "100K",
-  },
-];
+// const tournamentsToday = [
+//   {
+//     id: "1",
+//     image: "/Images/team.png",
+//     date: "02 Mar, 2025",
+//     title: "Cricket Championship",
+//     teams: "8 Teams",
+//     location: "Arena, Johar Town",
+//     time: "7:00 pm to 9:00 pm",
+//     prize: "100K",
+//   },
+//   {
+//     id: "2",
+//     image: "/Images/team.png",
+//     date: "02 Mar, 2025",
+//     title: "Super League Finals",
+//     teams: "6 Teams",
+//     location: "Arena, Johar Town",
+//     time: "7:00 pm to 9:00 pm",
+//     prize: "100K",
+//   },
+// ];
 
-const upcomingTournaments = [
-  {
-    id: 3,
-    image: (
-      <img
-        src="/Images/team.png"
-        alt="Tournament"
-        width={"100%"}
-        height={"auto"}
-        style={{ borderRadius: "10px" }}
-      />
-    ),
-    date: "05 Mar, 2025",
-    title: "T20 Premier Cup",
-    teams: "10 Teams",
-    location: "Arena, Johar Town",
-    time: "6:00 pm to 8:00 pm",
-    prize: "200K",
-  },
-  {
-    id: 4,
-    image: (
-      <img
-        src="/Images/team.png"
-        alt="Tournament"
-        width={"100%"}
-        height={"auto"}
-        style={{ borderRadius: "10px" }}
-      />
-    ),
-    date: "07 Mar, 2025",
-    title: "Street Cricket Bash",
-    teams: "12 Teams",
-    location: "Arena, Johar Town",
-    time: "5:00 pm to 7:00 pm",
-    prize: "150K",
-  },
-];
+// const upcomingTournaments = [
+//   {
+//     id: "3",
+//     image: "/Images/team.png",
+//     date: "05 Mar, 2025",
+//     title: "T20 Premier Cup",
+//     teams: "10 Teams",
+//     location: "Arena, Johar Town",
+//     time: "6:00 pm to 8:00 pm",
+//     prize: "200K",
+//   },
+//   {
+//     id: "4",
+//     image: "/Images/team.png",
+//     date: "07 Mar, 2025",
+//     title: "Street Cricket Bash",
+//     teams: "12 Teams",
+//     location: "Arena, Johar Town",
+//     time: "5:00 pm to 7:00 pm",
+//     prize: "150K",
+//   },
+// ];
 
 export default function HomeScreen() {
   const [tabIndex, setTabIndex] = useState(0);
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.tournament
+  );
+
+  const [tornamentToday, setTornamentToday] = useState<TornamentState[]>([]);
+  const [upcomingTournaments, setUpcomingTournaments] = useState<
+    TornamentState[]
+  >([]);
+
+  useEffect(() => {
+    if (data.length > 0) {
+      console.log("data 83", data);
+      setTornamentToday(
+        data.filter(
+          (tournament: TornamentState) => tournament.status === "TODAY"
+        )
+      );
+      setUpcomingTournaments(
+        data.filter(
+          (tournament: TornamentState) => tournament.status === "UPCOMING"
+        )
+      );
+    }
+  }, [data]);
+
+  useEffect(() => {
+    console.log("upcoming", upcomingTournaments);
+  }, [upcomingTournaments]);
+
+  useEffect(() => {
+    dispatch(fetchTournamentData() as any)
+      .then((res: any) => console.log("API Response:", res))
+      .catch((err: any) => console.error("API Error:", err));
+  }, [dispatch]);
 
   return (
     <Box sx={{ width: "100%" }}>
-      {/* Background Image Section */}
       <Box
         sx={{
           position: "relative",
@@ -166,7 +179,6 @@ export default function HomeScreen() {
         </Box>
       </Box>
 
-      {/* NEW: Tabs & Cards Section (Moved Below Image) */}
       <Box
         sx={{
           width: "90%",
@@ -208,9 +220,8 @@ export default function HomeScreen() {
           </Tabs>
         </Box>
 
-        {/* Tournament Cards */}
         {tabIndex === 0 ? (
-          <TournamentList tournaments={tournamentsToday} />
+          <TournamentList tournaments={tornamentToday} />
         ) : (
           <TournamentList tournaments={upcomingTournaments} />
         )}

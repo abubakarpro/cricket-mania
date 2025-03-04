@@ -7,22 +7,39 @@ import {
   LocationOn,
   AccessTime,
 } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { fetchTournamentData } from "@/redux/thunk/tournament.thunk";
+import { useEffect } from "react";
 
-interface TournamentProps {
-  tournament: {
-    image: string;
-    date: string;
-    title: string;
-    teams: string;
-    location: string;
-    time: string;
-    prize: string;
-  };
-}
+// interface TournamentProps {
+//   tournament: {
+//     id: string;
+//     image: string;
+//     date: string;
+//     title: string;
+//     teams: string;
+//     location: string;
+//     time: string;
+//     prize: string;
+//   };
+// }
 
-const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
+const TournamentCard: React.FC<{ tournament: TornamentState }> = ({
+  tournament,
+}) => {
   const theme = useTheme();
   const router = useRouter();
+  const dispatch = useDispatch();
+  const { data, loading, error } = useSelector(
+    (state: RootState) => state.tournament
+  );
+
+  useEffect(() => {
+    dispatch(fetchTournamentData() as any)
+      .then((res: any) => console.log("API HERE IN HOME WALAY CARD ME :", res))
+      .catch((err: any) => console.error("API Error:", err));
+  }, [dispatch]);
 
   return (
     <Card
@@ -45,8 +62,14 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
           sx={{ mr: { xs: 1, sm: 2 }, width: "199.25px", height: "199.25px" }}
         >
           <Image
-            src={tournament.image}
+            src={
+              tournament.tournamentImage
+                ? tournament.tournamentImage
+                : "/Images/team.png"
+            }
             alt="Tournament"
+            width="100"
+            height={"100"}
             style={{ borderRadius: "10px", width: "100%", height: "100%" }}
           />
         </Box>
@@ -61,7 +84,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
               color: "#ccc",
             }}
           >
-            {tournament.date}
+            {tournament.startDate}
           </Typography>
 
           <Box sx={{ mt: { xs: "20px", sm: "35px", md: "50px" } }}>
@@ -73,7 +96,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
                 fontWeight: 350,
               }}
             >
-              {tournament.title}
+              {tournament.name}
             </Typography>
 
             <Box
@@ -100,7 +123,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
                   fontWeight: 350,
                 }}
               >
-                {tournament.teams}
+                {tournament.registeredTeams}
               </Typography>
             </Box>
 
@@ -156,7 +179,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
                   fontWeight: 350,
                 }}
               >
-                {tournament.time}
+                {tournament.endDate}
               </Typography>
             </Box>
           </Box>
@@ -183,7 +206,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
           }}
         >
           Winning Prize:{" "}
-          <span style={{ color: "#159024" }}>{tournament.prize}</span>
+          <span style={{ color: "#159024" }}>{tournament.winnerPrize}</span>
         </Typography>
         <Button
           onClick={() => router.push("/tournament-details")}

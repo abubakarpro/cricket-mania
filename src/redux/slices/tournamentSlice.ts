@@ -4,7 +4,7 @@ import { fetchTournamentData } from "../thunk/tournament.thunk";
 const tournamentSlice = createSlice({
   name: "tournament",
   initialState: {
-    data: [],
+    data: [] as TornamentState[],
     loading: false,
     error: null as string | null,
   },
