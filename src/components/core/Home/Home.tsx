@@ -11,14 +11,15 @@ import {
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import React, { useState } from "react";
+import Image from "next/image";
+import teamImage from "../../../../public/Images/team.png";
 
-import TeamCardImg from "../../../../public/Images/team-img.png";
 import TournamentList from "@/components/common/TournamentList/TournamentList";
 
 const tournamentsToday = [
   {
     id: 1,
-    image: TeamCardImg,
+    image: <Image src={teamImage} alt="Tournament" />,
     date: "02 Mar, 2025",
     title: "Cricket Championship",
     teams: "8 Teams",
@@ -28,7 +29,15 @@ const tournamentsToday = [
   },
   {
     id: 2,
-    image: TeamCardImg,
+    image: (
+      <img
+        src="/Images/team.png"
+        alt="Tournament"
+        width={"100%"}
+        height={"auto"}
+        style={{ borderRadius: "10px" }}
+      />
+    ),
     date: "02 Mar, 2025",
     title: "Super League Finals",
     teams: "6 Teams",
@@ -41,7 +50,15 @@ const tournamentsToday = [
 const upcomingTournaments = [
   {
     id: 3,
-    image: TeamCardImg,
+    image: (
+      <img
+        src="/Images/team.png"
+        alt="Tournament"
+        width={"100%"}
+        height={"auto"}
+        style={{ borderRadius: "10px" }}
+      />
+    ),
     date: "05 Mar, 2025",
     title: "T20 Premier Cup",
     teams: "10 Teams",
@@ -51,7 +68,15 @@ const upcomingTournaments = [
   },
   {
     id: 4,
-    image: TeamCardImg,
+    image: (
+      <img
+        src="/Images/team.png"
+        alt="Tournament"
+        width={"100%"}
+        height={"auto"}
+        style={{ borderRadius: "10px" }}
+      />
+    ),
     date: "07 Mar, 2025",
     title: "Street Cricket Bash",
     teams: "12 Teams",
@@ -149,7 +174,7 @@ export default function HomeScreen() {
           marginTop: { xs: 4, sm: 6, md: 8 },
         }}
       >
-        <Box sx={{ display: "flex", justifyContent: "flex-start", mb: 2 }}>
+        <Box sx={{ display: "flex", justifyContent: "flex-sta", mb: 2 }}>
           <Tabs
             value={tabIndex}
             onChange={(_, newValue) => setTabIndex(newValue)}

@@ -1,5 +1,6 @@
 import { Card, Box, Typography, Button, useTheme } from "@mui/material";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   CalendarMonth,
   Groups,
@@ -21,6 +22,7 @@ interface TournamentProps {
 
 const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
   const theme = useTheme();
+  const router = useRouter();
 
   return (
     <Card
@@ -184,6 +186,7 @@ const TournamentCard: React.FC<TournamentProps> = ({ tournament }) => {
           <span style={{ color: "#159024" }}>{tournament.prize}</span>
         </Typography>
         <Button
+          onClick={() => router.push("/tournament-details")}
           sx={{
             color: "#159024",
             textTransform: "none",
