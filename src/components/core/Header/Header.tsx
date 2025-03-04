@@ -44,15 +44,19 @@ const Header = () => {
           display: "flex",
           alignItems: "center",
           cursor: "pointer",
-          width: { xs: "150px", sm: "180px", md: "300px" },
+          width: { xs: "120px", sm: "180px", md: "300px" }, // Responsive width
         }}
       >
         <Image
           src="/Images/logo.svg"
           alt="Logo"
-          width={100}
-          height={51}
-          style={{ objectFit: "contain" }}
+          width={300} // Default width
+          height={51} // Default height
+          style={{
+            objectFit: "contain",
+            width: "100%", // Ensure responsiveness
+            height: "auto", // Maintain aspect ratio
+          }}
         />
       </Box>
     </Box>
