@@ -92,7 +92,7 @@ export default function HomeScreen() {
               fontFamily: "Avenir LT Std",
             }}
           >
-            Be a part of an <br /> Upcoming 🏏 Tournament
+            Be a part of an <br /> Upcoming 🏏 Tournament !!
           </Typography>
 
           {/* Search Field */}
